@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import java.util.concurrent.ExecutionException;
+
 public class MenuActivity extends AppCompatActivity {
 
     @Override
@@ -29,8 +31,25 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d("TAG", "initial");
-                Intent intent = new Intent(MenuActivity.this, InitialGeneratorActivity.class);
-                startActivity(intent);
+                KoreanWordAPITask task = new KoreanWordAPITask();
+                try{
+                    KoreanWord word = task.execute().get();
+                    if (word != null) {
+                        Intent intent = new Intent(MenuActivity.this, InitialQuizActivity.class);
+                        intent.putExtra("word", word);
+                        startActivity(intent);
+                    }
+                    else {
+                        Toast.makeText(getApplicationContext(), "오류가 발생했습니다", Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch(InterruptedException e){
+                    Log.d("TAG", e.toString());
+                    e.printStackTrace();
+                } catch(ExecutionException e){
+                    Log.d("TAG", e.toString());
+                    e.printStackTrace();
+                }
             }
         });
         FrameLayout frmToday = (FrameLayout) findViewById(R.id.frm_today);

@@ -29,7 +29,6 @@
 
         <activity android:name=".MenuActivity" />
         <activity android:name=".ContactActivity" />
-        <activity android:name=".InitialGeneratorActivity" />
         <activity android:name=".InitialQuizActivity" />
     </application>
 

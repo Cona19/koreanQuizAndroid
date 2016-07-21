@@ -22,7 +22,7 @@ public class KoreanWordAPIClient {
 
     public static KoreanWord getKoreanWord(int id){
         KoreanWord word = null;
-        String urlString = koreanWordAPIURL + "words/" + id;
+        String urlString = koreanWordAPIURL + "words/" + (id == 0 ? "random" : id);
         try {
             URL url = new URL(urlString);
 
@@ -43,6 +43,10 @@ public class KoreanWordAPIClient {
             e.printStackTrace();
         }
         return word;
+    }
+
+    public static KoreanWord getKoreanWord(){
+        return getKoreanWord(0);
     }
 
     private static KoreanWord parseJSON(JSONObject json) throws JSONException {

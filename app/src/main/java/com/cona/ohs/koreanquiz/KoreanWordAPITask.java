@@ -8,7 +8,12 @@ import android.os.AsyncTask;
 public class KoreanWordAPITask extends AsyncTask<Integer, Void, KoreanWord> {
     @Override
     protected KoreanWord doInBackground(Integer... integers) {
-        int id = integers[0];
-        return KoreanWordAPIClient.getKoreanWord(id);
+        if (integers.length > 0){
+            int id = integers[0];
+            return KoreanWordAPIClient.getKoreanWord(id);
+        }
+        else{
+            return KoreanWordAPIClient.getKoreanWord();
+        }
     }
 }
