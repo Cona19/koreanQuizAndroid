@@ -14,22 +14,29 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="초성문제자음"
-            android:id="@+id/text_initial_quiz_initial"
-            android:layout_gravity="center_horizontal"
-            android:textSize="50dp"
-            android:singleLine="false" />
-
-        <TextView
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="초성 문제 해설"
-            android:id="@+id/text_initial_quiz_hint"
-            android:layout_marginTop="30dp" />
+            android:id="@+id/layout_initial_quiz_info">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="초성문제자음"
+                android:id="@+id/text_initial_quiz_initial"
+                android:layout_gravity="center_horizontal"
+                android:textSize="50dp"
+                android:singleLine="false" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="초성 문제 해설"
+                android:id="@+id/text_initial_quiz_hint"
+                android:layout_marginTop="30dp" />
+        </LinearLayout>
 
         <EditText
             android:layout_width="match_parent"
