@@ -21,6 +21,9 @@ public class KoreanWord implements Serializable{
     }
 
     public KoreanWord() {
+        id = 0;
+        word = "";
+        explanation = "";
     }
 
     public int getId() {

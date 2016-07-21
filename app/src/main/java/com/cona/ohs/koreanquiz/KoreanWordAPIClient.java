@@ -21,7 +21,7 @@ public class KoreanWordAPIClient {
     final static String koreanWordAPIURL = "http://52.196.178.200:8080/api/";
 
     public static KoreanWord getKoreanWord(int id){
-        KoreanWord word = new KoreanWord();
+        KoreanWord word = null;
         String urlString = koreanWordAPIURL + "words/" + id;
         try {
             URL url = new URL(urlString);
@@ -33,10 +33,13 @@ public class KoreanWordAPIClient {
             word = parseJSON(json);
             word.setId(id);
         } catch (MalformedURLException e) {
+            Log.d("TAG", e.toString());
             e.printStackTrace();
         } catch (JSONException e) {
+            Log.d("TAG", e.toString());
             e.printStackTrace();
         } catch (IOException e) {
+            Log.d("TAG", e.toString());
             e.printStackTrace();
         }
         return word;

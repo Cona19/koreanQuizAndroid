@@ -27,7 +27,7 @@ public class InitialGeneratorActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_initial_generator);
-        setTitle("초성 문제번호 입력");
+        setTitle("초성문제 번호 입력");
 
         Button btnInitialQuizByNum = (Button) findViewById(R.id.btn_initialQuizByNum);
         btnInitialQuizByNum.setOnClickListener(new View.OnClickListener() {
@@ -53,8 +53,10 @@ public class InitialGeneratorActivity extends AppCompatActivity {
                         }
 
                     } catch(InterruptedException e){
+                        Log.d("TAG", e.toString());
                         e.printStackTrace();
                     } catch(ExecutionException e){
+                        Log.d("TAG", e.toString());
                         e.printStackTrace();
                     }
                 }

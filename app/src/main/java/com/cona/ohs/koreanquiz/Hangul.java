@@ -181,13 +181,14 @@ public class Hangul  {
      */
     public static String exportFirstSound(String str){
         int length = str.length();
-        if (isHangul(str)) return null;
+        if (!isHangul(str)) return null;
         char[] result = new char[length];
 
         for (int i = 0; i <length; i++){
             result[i] = getFirstElement(str.charAt(i));
+
         }
-        return result.toString();
+        return new String(result, 0, length);
     }
     /**
      *한글 한 글자를 구성 할 초성, 중성, 종성을 받아 조합 후 char[]로 반환 한다.

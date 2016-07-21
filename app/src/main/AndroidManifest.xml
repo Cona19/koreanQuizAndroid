@@ -30,7 +30,7 @@
         <activity android:name=".MenuActivity" />
         <activity android:name=".ContactActivity" />
         <activity android:name=".InitialGeneratorActivity" />
-        <activity android:name=".InitialQuizActivity"></activity>
+        <activity android:name=".InitialQuizActivity" />
     </application>
 
 </manifest>
