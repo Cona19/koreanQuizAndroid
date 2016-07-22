@@ -54,6 +54,32 @@ public class APIClient {
         }
     }
 
+    public static Statistics getStatistics(String facebookUserId){
+        Statistics statistics = null;
+        String urlString = APIURL + "record/" + facebookUserId;
+        Log.d("TAG", urlString);
+        try {
+            URL url = new URL(urlString);
+
+            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+            JSONObject json = new JSONObject(getStringFromInputStream(in));
+
+            Log.d("TAG", json.toString());
+            statistics = parseStatisticsJSON(json);
+        } catch (MalformedURLException e) {
+            Log.d("TAG", e.toString());
+            e.printStackTrace();
+        } catch (JSONException e) {
+            Log.d("TAG", e.toString());
+            e.printStackTrace();
+        } catch (IOException e) {
+            Log.d("TAG", e.toString());
+            e.printStackTrace();
+        }
+        return statistics;
+    }
+
     public static KoreanWord getKoreanWord(int id){
         KoreanWord word = null;
         String urlString = APIURL + "words/" + (id == 0 ? "random" : id);
@@ -90,6 +116,16 @@ public class APIClient {
         word.setExplanation(json.getString("explanation"));
 
         return word;
+    }
+
+    private static Statistics parseStatisticsJSON(JSONObject json) throws JSONException {
+        Statistics statistics = new Statistics();
+        statistics.setCntCorrectTry(json.getInt("cntCorrectTry"));
+        statistics.setCntWrongTry(json.getInt("cntWrongTry"));
+        statistics.setCntCorrectProblem(json.getInt("cntCorrectProblem"));
+        statistics.setCntWrongProblem(json.getInt("cntWrongProblem"));
+
+        return statistics;
     }
 
     private static String getStringFromInputStream(InputStream is) {

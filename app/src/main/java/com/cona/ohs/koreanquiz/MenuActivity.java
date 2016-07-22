@@ -46,7 +46,8 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d("TAG", "statistics");
-                Toast.makeText(getApplicationContext(), "준비중입니다.", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MenuActivity.this, StatisticsActivity.class);
+                startActivity(intent);
             }
         });
         FrameLayout frmShare = (FrameLayout) findViewById(R.id.frm_share);
