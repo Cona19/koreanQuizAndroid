@@ -29,7 +29,13 @@
 
         <activity android:name=".MenuActivity" />
         <activity android:name=".ContactActivity" />
-        <activity android:name=".InitialQuizActivity" />
+        <activity
+            android:name=".InitialQuizActivity"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".CrossQuizActivity"
+            android:configChanges="orientation|screenSize" />
+        <activity android:name=".StatisticsActivity"></activity>
     </application>
 
 </manifest>

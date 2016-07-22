@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.HttpURLConnection;
@@ -17,12 +18,45 @@ import java.net.HttpURLConnection;
 /**
  * Created by hyeonseok on 2016. 7. 21..
  */
-public class KoreanWordAPIClient {
-    final static String koreanWordAPIURL = "http://52.196.178.200:8080/api/";
+public class APIClient {
+    final static String APIURL = "http://52.196.178.200:8080/api/";
+
+    public static void postResult(Record record){
+        String url = APIURL + "record/";
+        Log.d("TAG", "Post Result");
+        try {
+            URL object = new URL(url);
+
+            HttpURLConnection con = (HttpURLConnection) object.openConnection();
+            con.setDoOutput(true);
+            con.setDoInput(true);
+            con.setRequestProperty("Content-Type", "application/json");
+            con.setRequestProperty("Accept", "application/json");
+            con.setRequestMethod("POST");
+
+            JSONObject json = new JSONObject();
+
+            json.put("facebookUserId", record.getFacebookUserId());
+            json.put("wordId", record.getWord().getId());
+            json.put("succeed", record.isSucceed());
+            OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
+            wr.write(json.toString());
+            wr.flush();
+            Log.d("TAG", json.toString());
+            int responseCode = con.getResponseCode();
+            Log.d("TAG", "ResponseCode : " + responseCode);
+        } catch (IOException e) {
+            Log.d("TAG", e.toString());
+            e.printStackTrace();
+        } catch (JSONException e) {
+            Log.d("TAG", e.toString());
+            e.printStackTrace();
+        }
+    }
 
     public static KoreanWord getKoreanWord(int id){
         KoreanWord word = null;
-        String urlString = koreanWordAPIURL + "words/" + (id == 0 ? "random" : id);
+        String urlString = APIURL + "words/" + (id == 0 ? "random" : id);
         try {
             URL url = new URL(urlString);
 
@@ -30,7 +64,7 @@ public class KoreanWordAPIClient {
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
             JSONObject json = new JSONObject(getStringFromInputStream(in));
 
-            word = parseJSON(json);
+            word = parseKoreanWordJSON(json);
             word.setId(id);
         } catch (MalformedURLException e) {
             Log.d("TAG", e.toString());
@@ -49,7 +83,7 @@ public class KoreanWordAPIClient {
         return getKoreanWord(0);
     }
 
-    private static KoreanWord parseJSON(JSONObject json) throws JSONException {
+    private static KoreanWord parseKoreanWordJSON(JSONObject json) throws JSONException {
         KoreanWord word = new KoreanWord();
         word.setId(json.getInt("id"));
         word.setWord(json.getString("word"));

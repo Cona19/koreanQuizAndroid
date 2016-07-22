@@ -181,12 +181,14 @@ public class Hangul  {
      */
     public static String exportFirstSound(String str){
         int length = str.length();
-        if (!isHangul(str)) return null;
         char[] result = new char[length];
 
         for (int i = 0; i <length; i++){
-            result[i] = getFirstElement(str.charAt(i));
-
+            char ch = str.charAt(i);
+            if (isHangul(ch))
+                result[i] = getFirstElement(str.charAt(i));
+            else
+                result[i] = ch;
         }
         return new String(result, 0, length);
     }

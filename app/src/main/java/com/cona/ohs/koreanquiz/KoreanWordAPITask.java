@@ -10,10 +10,10 @@ public class KoreanWordAPITask extends AsyncTask<Integer, Void, KoreanWord> {
     protected KoreanWord doInBackground(Integer... integers) {
         if (integers.length > 0){
             int id = integers[0];
-            return KoreanWordAPIClient.getKoreanWord(id);
+            return APIClient.getKoreanWord(id);
         }
         else{
-            return KoreanWordAPIClient.getKoreanWord();
+            return APIClient.getKoreanWord();
         }
     }
 }
