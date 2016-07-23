@@ -19,6 +19,7 @@ public class StatisticsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics);
+        setTitle("통계");
         StatisticsAPITask task = new StatisticsAPITask();
         SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
         String facebookUserId = pref.getString("facebookUserId", "");

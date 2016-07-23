@@ -34,7 +34,6 @@ public class InitialQuizActivity extends AppCompatActivity {
 
         TextView textInitials = (TextView) findViewById(R.id.text_initial_quiz_initial);
         textInitials.setText(word.getInitial());
-        Log.d("TAG", word.getWord());
 
         TextView textHint = (TextView) findViewById(R.id.text_initial_quiz_hint);
         textHint.setText(word.getExplanation());
@@ -59,10 +58,6 @@ public class InitialQuizActivity extends AppCompatActivity {
 
                     Animation move = AnimationUtils.loadAnimation(InitialQuizActivity.this, R.anim.move);
                     findViewById(R.id.layout_initial_quiz_info).startAnimation(move);
-                    //LinearLayout layout = (LinearLayout) findViewById(R.id.layout_initial_quiz_info);
-                    //View parent = (View) layout.getParent(); //(View) findViewById(R.id.layout_initial_quiz_info);
-                    //float parentCenterY = parent.getY() + parent.getHeight()/2;
-                    //layout.animate().translationY(parentCenterY - layout.getHeight()/2);
                 }
                 else{
                     postRecord(false);

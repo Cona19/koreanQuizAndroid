@@ -19,7 +19,7 @@ import java.net.HttpURLConnection;
  * Created by hyeonseok on 2016. 7. 21..
  */
 public class APIClient {
-    final static String APIURL = "http://52.196.178.200:8080/api/";
+    final static String APIURL = "http://koreanquiz-hs5.rhcloud.com/api/";
 
     public static void postResult(Record record){
         String url = APIURL + "record/";
@@ -91,7 +91,6 @@ public class APIClient {
             JSONObject json = new JSONObject(getStringFromInputStream(in));
 
             word = parseKoreanWordJSON(json);
-            word.setId(id);
         } catch (MalformedURLException e) {
             Log.d("TAG", e.toString());
             e.printStackTrace();
@@ -110,6 +109,7 @@ public class APIClient {
     }
 
     private static KoreanWord parseKoreanWordJSON(JSONObject json) throws JSONException {
+        Log.d("TAG", "JSON : " + json.toString());
         KoreanWord word = new KoreanWord();
         word.setId(json.getInt("id"));
         word.setWord(json.getString("word"));

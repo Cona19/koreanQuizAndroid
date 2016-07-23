@@ -33,14 +33,6 @@ public class MenuActivity extends AppCompatActivity {
                 getKoreanWordAndStartQuiz(new Intent(MenuActivity.this, InitialQuizActivity.class));
             }
         });
-        FrameLayout frmToday = (FrameLayout) findViewById(R.id.frm_today);
-        frmToday.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("TAG", "today");
-                Toast.makeText(getApplicationContext(), "준비중입니다.", Toast.LENGTH_SHORT).show();
-            }
-        });
         FrameLayout frmStatistics = (FrameLayout) findViewById(R.id.frm_statistics);
         frmStatistics.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,14 +40,6 @@ public class MenuActivity extends AppCompatActivity {
                 Log.d("TAG", "statistics");
                 Intent intent = new Intent(MenuActivity.this, StatisticsActivity.class);
                 startActivity(intent);
-            }
-        });
-        FrameLayout frmShare = (FrameLayout) findViewById(R.id.frm_share);
-        frmShare.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("TAG", "share");
-                Toast.makeText(getApplicationContext(), "준비중입니다.", Toast.LENGTH_SHORT).show();
             }
         });
         FrameLayout frmContact = (FrameLayout) findViewById(R.id.frm_contact);

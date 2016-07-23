@@ -11,9 +11,10 @@ public class KoreanWord implements Serializable{
     private String word;
     private String explanation;
     private static final Random rand = new Random();
-    private static final char hiddenChar = 'ㅁ';
+    private static final char hiddenChar = '☆';
 
     public KoreanWord(String word, String explanation) {
+        this.id = 0;
         this.word = word;
         this.explanation = explanation;
     }
