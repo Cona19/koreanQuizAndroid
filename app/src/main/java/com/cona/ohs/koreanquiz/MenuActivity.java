@@ -27,7 +27,7 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d("TAG", "crossword");
-                getKoreanWordAndStartQuiz(new Intent(MenuActivity.this, CrossQuizActivity.class));
+                getKoreanWordAndStartQuiz(new Intent(MenuActivity.this, CrosswordQuizActivity.class));
             }
         });
         FrameLayout frmInitial  = (FrameLayout) findViewById(R.id.frm_initial);
