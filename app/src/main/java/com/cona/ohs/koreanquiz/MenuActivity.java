@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2016 Hyeonseok Oh. All Rights Reserved.
+ */
+
 package com.cona.ohs.koreanquiz;
 
 import android.content.Intent;
@@ -17,6 +21,7 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
         setTitle("우리말 겨루기");
 
+        /* Set each frame's click event handler */
         FrameLayout frmCrossword = (FrameLayout) findViewById(R.id.frm_crossword);
         frmCrossword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,11 +58,14 @@ public class MenuActivity extends AppCompatActivity {
         });
     }
 
+    /* get koreanword from KoreanWordAPITask asynchronously and put koreanWord in intent before move to next Activity */
     private void getKoreanWordAndStartQuiz(Intent intent){
         KoreanWordAPITask task = new KoreanWordAPITask();
         try{
+            /* Get koreanWord using asnycTask */
             KoreanWord word = task.execute().get();
             if (word != null) {
+                /* Store koreanWord in intent */
                 intent.putExtra("word", word);
                 startActivity(intent);
             }

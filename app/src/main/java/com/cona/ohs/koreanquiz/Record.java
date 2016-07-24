@@ -1,7 +1,12 @@
+/*
+ * Copyright (c) 2016 Hyeonseok Oh. All Rights Reserved.
+ */
+
 package com.cona.ohs.koreanquiz;
 
 /**
  * Created by hyeonseok on 2016. 7. 22..
+ * This class is used to store user's try and result record.
  */
 public class Record {
     private String facebookUserId;

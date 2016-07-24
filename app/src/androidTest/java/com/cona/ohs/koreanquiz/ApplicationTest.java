@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2016 Hyeonseok Oh. All Rights Reserved.
+ */
+
 package com.cona.ohs.koreanquiz;
 
 import android.app.Application;

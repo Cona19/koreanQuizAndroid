@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2016 Hyeonseok Oh. All Rights Reserved.
+ */
+
 package com.cona.ohs.koreanquiz;
 
 import android.util.Log;
@@ -17,10 +21,16 @@ import java.net.HttpURLConnection;
 
 /**
  * Created by hyeonseok on 2016. 7. 21..
+ * This class is used to communicate with server.
+ * All communication functions are implemented in this class.
  */
 public class APIClient {
     final static String APIURL = "http://koreanquiz-hs5.rhcloud.com/api/";
 
+    /**
+     * post user's record to server
+     * @param record
+     */
     public static void postResult(Record record){
         String url = APIURL + "record/";
         Log.d("TAG", "Post Result");
@@ -54,6 +64,11 @@ public class APIClient {
         }
     }
 
+    /**
+     * get user's statistics from facebookUserId
+     * @param facebookUserId
+     * @return corresponding statistics
+     */
     public static Statistics getStatistics(String facebookUserId){
         Statistics statistics = null;
         String urlString = APIURL + "record/" + facebookUserId;
@@ -80,6 +95,11 @@ public class APIClient {
         return statistics;
     }
 
+    /**
+     * get one koreanWord from server. If id is zero, get one random koreanWord.
+     * @param id
+     * @return koreanWord
+     */
     public static KoreanWord getKoreanWord(int id){
         KoreanWord word = null;
         String urlString = APIURL + "words/" + (id == 0 ? "random" : id);
@@ -108,6 +128,12 @@ public class APIClient {
         return getKoreanWord(0);
     }
 
+    /**
+     * parse json type from server and make a koreanWord from it.
+     * @param json
+     * @return koreanWord
+     * @throws JSONException
+     */
     private static KoreanWord parseKoreanWordJSON(JSONObject json) throws JSONException {
         Log.d("TAG", "JSON : " + json.toString());
         KoreanWord word = new KoreanWord();
@@ -118,6 +144,12 @@ public class APIClient {
         return word;
     }
 
+    /**
+     * parse json type from server and make statistics from it.
+     * @param json
+     * @return statistics
+     * @throws JSONException
+     */
     private static Statistics parseStatisticsJSON(JSONObject json) throws JSONException {
         Statistics statistics = new Statistics();
         statistics.setCntCorrectTry(json.getInt("cntCorrectTry"));
@@ -128,6 +160,11 @@ public class APIClient {
         return statistics;
     }
 
+    /**
+     * process respond from server and return String which server has sent
+     * @param is
+     * @return String
+     */
     private static String getStringFromInputStream(InputStream is) {
         BufferedReader br = null;
         StringBuilder sb = new StringBuilder();

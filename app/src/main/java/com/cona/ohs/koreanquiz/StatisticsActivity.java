@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2016 Hyeonseok Oh. All Rights Reserved.
+ */
+
 package com.cona.ohs.koreanquiz;
 
 import android.content.Intent;
@@ -21,13 +25,17 @@ public class StatisticsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_statistics);
         setTitle("통계");
         StatisticsAPITask task = new StatisticsAPITask();
+
+        /* Get facebookUserId from sharedPreference */
         SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
         String facebookUserId = pref.getString("facebookUserId", "");
         Log.d("TAG", "onCreate_facebookUserId : " + facebookUserId);
         try{
+            /* Get Statistics from server */
             Statistics statistics = task.execute(facebookUserId).get();
             Log.d("TAG", "cntCorrectTry : " + Integer.toString(statistics.getCntCorrectTry()));
             if (statistics != null) {
+                /* Set View's contents to statistics's contents */
                 TextView textCntCorrectTry = (TextView) findViewById(R.id.text_statistics_count_correct_try);
                 TextView textCntWrongTry = (TextView) findViewById(R.id.text_statistics_count_wrong_try);
                 TextView textCorrectTryPercent = (TextView) findViewById(R.id.text_statistics_correct_try_percent);

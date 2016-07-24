@@ -1,3 +1,7 @@
+<!--
+  ~ Copyright (c) 2016 Hyeonseok Oh. All Rights Reserved.
+  -->
+
 <resources>
     <string name="app_name">우리말 겨루기</string>
     <string name="facebook_app_id">1208760659168257</string>
