@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2016 Hyeonseok Oh. All Rights Reserved.
+  -->
+
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.cona.ohs.koreanquiz">
+    package="com.cona.ohs.koreanquiz"
+    android:versionCode="0"
+    android:versionName="1.0.0">
 
     <uses-permission android:name="android.permission.INTERNET" />
 

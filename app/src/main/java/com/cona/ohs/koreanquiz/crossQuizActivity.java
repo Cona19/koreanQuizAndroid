@@ -26,11 +26,10 @@ public class CrossQuizActivity extends AppCompatActivity {
         Intent intent = getIntent();
         word = (KoreanWord) intent.getSerializableExtra("word");
         SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
-        record = new Record(pref.getString("pref", "facebookUserId"), word);
+        record = new Record(pref.getString("facebookUserId", ""), word);
 
         TextView textCross = (TextView) findViewById(R.id.text_cross_quiz_letter);
         textCross.setText(word.getCrossword());
-        Log.d("TAG", word.getWord());
 
         TextView textHint = (TextView) findViewById(R.id.text_cross_quiz_hint);
         textHint.setText(word.getExplanation());

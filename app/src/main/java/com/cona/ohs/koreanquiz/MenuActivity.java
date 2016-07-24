@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2016 Hyeonseok Oh. All Rights Reserved.
+ */
+
 package com.cona.ohs.koreanquiz;
 
 import android.content.Intent;
@@ -17,6 +21,7 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
         setTitle("우리말 겨루기");
 
+        /* Set each frame's click event handler */
         FrameLayout frmCrossword = (FrameLayout) findViewById(R.id.frm_crossword);
         frmCrossword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,28 +38,13 @@ public class MenuActivity extends AppCompatActivity {
                 getKoreanWordAndStartQuiz(new Intent(MenuActivity.this, InitialQuizActivity.class));
             }
         });
-        FrameLayout frmToday = (FrameLayout) findViewById(R.id.frm_today);
-        frmToday.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("TAG", "today");
-                Toast.makeText(getApplicationContext(), "준비중입니다.", Toast.LENGTH_SHORT).show();
-            }
-        });
         FrameLayout frmStatistics = (FrameLayout) findViewById(R.id.frm_statistics);
         frmStatistics.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d("TAG", "statistics");
-                Toast.makeText(getApplicationContext(), "준비중입니다.", Toast.LENGTH_SHORT).show();
-            }
-        });
-        FrameLayout frmShare = (FrameLayout) findViewById(R.id.frm_share);
-        frmShare.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("TAG", "share");
-                Toast.makeText(getApplicationContext(), "준비중입니다.", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MenuActivity.this, StatisticsActivity.class);
+                startActivity(intent);
             }
         });
         FrameLayout frmContact = (FrameLayout) findViewById(R.id.frm_contact);
@@ -68,11 +58,14 @@ public class MenuActivity extends AppCompatActivity {
         });
     }
 
+    /* get koreanword from KoreanWordAPITask asynchronously and put koreanWord in intent before move to next Activity */
     private void getKoreanWordAndStartQuiz(Intent intent){
         KoreanWordAPITask task = new KoreanWordAPITask();
         try{
+            /* Get koreanWord using asnycTask */
             KoreanWord word = task.execute().get();
             if (word != null) {
+                /* Store koreanWord in intent */
                 intent.putExtra("word", word);
                 startActivity(intent);
             }

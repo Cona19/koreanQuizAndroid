@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2016 Hyeonseok Oh. All Rights Reserved.
+ */
+
 package com.cona.ohs.koreanquiz;
 
 import android.content.Intent;
@@ -22,9 +26,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle("로그인");
+
+        /* Initialize facebookSDK */
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_main);
 
+        /* Configure some options and set callback of facebook login button */
         callbackManager = CallbackManager.Factory.create();
         LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "email"));
         LoginManager.getInstance().registerCallback(callbackManager,
@@ -32,10 +39,14 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
                         Log.d("TAG", "페이스북 UserID : " + loginResult.getAccessToken().getUserId());
+
+                        /* Store facebookUserId in sharedPreference */
                         SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
                         SharedPreferences.Editor editor = pref.edit();
                         editor.putString("facebookUserId", loginResult.getAccessToken().getUserId());
                         editor.commit();
+
+                        /* Move to MenuActivity */
                         Intent intent = new Intent(MainActivity.this, MenuActivity.class);
                         startActivity(intent);
                     }

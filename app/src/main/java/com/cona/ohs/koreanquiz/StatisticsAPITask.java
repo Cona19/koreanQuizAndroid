@@ -9,12 +9,11 @@ import android.os.AsyncTask;
 /**
  * Created by hyeonseok on 2016. 7. 22..
  * This class is used to do communication with server asynchronously.
- * using this class, we can post record to serer.
+ * using this class, we can get statistics to serer.
  */
-public class RecordAPITask extends AsyncTask<Record, Void, Void>{
+public class StatisticsAPITask extends AsyncTask<String, Void, Statistics> {
     @Override
-    protected Void doInBackground(Record... records) {
-        APIClient.postResult(records[0]);
-        return null;
+    protected Statistics doInBackground(String... strings) {
+        return APIClient.getStatistics(strings[0]);
     }
 }

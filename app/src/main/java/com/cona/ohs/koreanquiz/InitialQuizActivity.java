@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2016 Hyeonseok Oh. All Rights Reserved.
+ */
+
 package com.cona.ohs.koreanquiz;
 
 import android.content.Intent;
@@ -28,13 +32,16 @@ public class InitialQuizActivity extends AppCompatActivity {
         setTitle("초성 문제");
         setContentView(R.layout.activity_initial_quiz);
         Intent intent = getIntent();
+
+        /* Get koreanWord from intent */
         word = (KoreanWord) intent.getSerializableExtra("word");
+
+        /* Get facebookUserID from sharedPreference */
         SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
         record = new Record(pref.getString("facebookUserId", ""), word);
 
         TextView textInitials = (TextView) findViewById(R.id.text_initial_quiz_initial);
         textInitials.setText(word.getInitial());
-        Log.d("TAG", word.getWord());
 
         TextView textHint = (TextView) findViewById(R.id.text_initial_quiz_hint);
         textHint.setText(word.getExplanation());
@@ -46,26 +53,31 @@ public class InitialQuizActivity extends AppCompatActivity {
             public void onClick(View v) {
                 EditText editAnswer = (EditText) findViewById(R.id.edit_initial_quiz_answer);
                 String answer = editAnswer.getText().toString();
+                /* Match with original word and determine whether it is correct or not */
                 if (answer.equals(word.getWord())){
+                    /* Post correct result to server */
                     postRecord(true);
+
+                    /* Remove editView and button */
                     ViewGroup vg = (ViewGroup) editAnswer.getParent();
                     vg.removeView(editAnswer);
                     Button btnSubmit = (Button) findViewById(R.id.btn_initial_quiz_submit);
                     vg = (ViewGroup) btnSubmit.getParent();
                     vg.removeView(btnSubmit);
 
+                    /* Show correct answer */
                     TextView textInitials = (TextView) findViewById(R.id.text_initial_quiz_initial);
                     textInitials.setText(word.getWord());
 
+                    /* move some views to be looked cool */
                     Animation move = AnimationUtils.loadAnimation(InitialQuizActivity.this, R.anim.move);
                     findViewById(R.id.layout_initial_quiz_info).startAnimation(move);
-                    //LinearLayout layout = (LinearLayout) findViewById(R.id.layout_initial_quiz_info);
-                    //View parent = (View) layout.getParent(); //(View) findViewById(R.id.layout_initial_quiz_info);
-                    //float parentCenterY = parent.getY() + parent.getHeight()/2;
-                    //layout.animate().translationY(parentCenterY - layout.getHeight()/2);
                 }
                 else{
+                    /* Post wrong result to server */
                     postRecord(false);
+
+                    /* shake editView to show that it is wrong */
                     Animation shake = AnimationUtils.loadAnimation(InitialQuizActivity.this, R.anim.shake);
                     findViewById(R.id.edit_initial_quiz_answer).startAnimation(shake);
                 }
@@ -78,6 +90,10 @@ public class InitialQuizActivity extends AppCompatActivity {
         super.onConfigurationChanged(newConfig);
     }
 
+    /**
+     * post try result to server. It is executed asynchronously.
+     * @param succeed
+     */
     private void postRecord(boolean succeed){
         record.setSucceed(succeed);
         RecordAPITask task = new RecordAPITask();
