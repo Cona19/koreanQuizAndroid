@@ -1,9 +1,11 @@
 package com.cona.ohs.koreanquiz;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -30,18 +32,22 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
                         Log.d("TAG", "페이스북 UserID : " + loginResult.getAccessToken().getUserId());
+                        SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = pref.edit();
+                        editor.putString("facebookUserId", loginResult.getAccessToken().getUserId());
+                        editor.commit();
                         Intent intent = new Intent(MainActivity.this, MenuActivity.class);
                         startActivity(intent);
                     }
 
                     @Override
                     public void onCancel() {
-                        // App code
+                        Toast.makeText(getApplicationContext(), "로그인이 취소되었습니다", Toast.LENGTH_SHORT);
                     }
 
                     @Override
                     public void onError(FacebookException exception) {
-                        // App code
+                        Toast.makeText(getApplicationContext(), "오류가 발생했습니다", Toast.LENGTH_SHORT);
                     }
                 });
     }

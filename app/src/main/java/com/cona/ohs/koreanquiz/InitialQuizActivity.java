@@ -1,6 +1,8 @@
 package com.cona.ohs.koreanquiz;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,11 +12,16 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.concurrent.ExecutionException;
+
 public class InitialQuizActivity extends AppCompatActivity {
     KoreanWord word;
+    Record record;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,10 +29,12 @@ public class InitialQuizActivity extends AppCompatActivity {
         setContentView(R.layout.activity_initial_quiz);
         Intent intent = getIntent();
         word = (KoreanWord) intent.getSerializableExtra("word");
-        //Toast.makeText(getApplicationContext(), word.getWord(), Toast.LENGTH_SHORT);
-        final TextView textInitials = (TextView) findViewById(R.id.text_initial_quiz_initial);
+        SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
+        record = new Record(pref.getString("facebookUserId", ""), word);
+
+        TextView textInitials = (TextView) findViewById(R.id.text_initial_quiz_initial);
         textInitials.setText(word.getInitial());
-        Log.d("TAG", word.getInitial());
+        Log.d("TAG", word.getWord());
 
         TextView textHint = (TextView) findViewById(R.id.text_initial_quiz_hint);
         textHint.setText(word.getExplanation());
@@ -38,22 +47,40 @@ public class InitialQuizActivity extends AppCompatActivity {
                 EditText editAnswer = (EditText) findViewById(R.id.edit_initial_quiz_answer);
                 String answer = editAnswer.getText().toString();
                 if (answer.equals(word.getWord())){
+                    postRecord(true);
                     ViewGroup vg = (ViewGroup) editAnswer.getParent();
                     vg.removeView(editAnswer);
                     Button btnSubmit = (Button) findViewById(R.id.btn_initial_quiz_submit);
                     vg = (ViewGroup) btnSubmit.getParent();
                     vg.removeView(btnSubmit);
 
+                    TextView textInitials = (TextView) findViewById(R.id.text_initial_quiz_initial);
                     textInitials.setText(word.getWord());
 
                     Animation move = AnimationUtils.loadAnimation(InitialQuizActivity.this, R.anim.move);
                     findViewById(R.id.layout_initial_quiz_info).startAnimation(move);
+                    //LinearLayout layout = (LinearLayout) findViewById(R.id.layout_initial_quiz_info);
+                    //View parent = (View) layout.getParent(); //(View) findViewById(R.id.layout_initial_quiz_info);
+                    //float parentCenterY = parent.getY() + parent.getHeight()/2;
+                    //layout.animate().translationY(parentCenterY - layout.getHeight()/2);
                 }
                 else{
+                    postRecord(false);
                     Animation shake = AnimationUtils.loadAnimation(InitialQuizActivity.this, R.anim.shake);
                     findViewById(R.id.edit_initial_quiz_answer).startAnimation(shake);
                 }
             }
         });
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+    }
+
+    private void postRecord(boolean succeed){
+        record.setSucceed(succeed);
+        RecordAPITask task = new RecordAPITask();
+        task.execute(record);
     }
 }

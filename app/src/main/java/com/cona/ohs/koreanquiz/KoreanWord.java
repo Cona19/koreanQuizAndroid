@@ -1,6 +1,7 @@
 package com.cona.ohs.koreanquiz;
 
 import java.io.Serializable;
+import java.util.Random;
 
 /**
  * Created by hyeonseok on 2016. 7. 21..
@@ -9,6 +10,8 @@ public class KoreanWord implements Serializable{
     private int id;
     private String word;
     private String explanation;
+    private static final Random rand = new Random();
+    private static final char hiddenChar = 'ㅁ';
 
     public KoreanWord(String word, String explanation) {
         this.word = word;
@@ -55,6 +58,17 @@ public class KoreanWord implements Serializable{
     }
 
     public String getCrossword() {
-        return "";
+        int length = word.length();
+        int showIdx = rand.nextInt(length);
+        StringBuilder crossWord = new StringBuilder();
+        for (int i = 0; i <length; i++){
+            if (showIdx == i){
+                crossWord.append(word.charAt(i));
+            }
+            else{
+                crossWord.append(hiddenChar);
+            }
+        }
+        return crossWord.toString();
     }
 }
