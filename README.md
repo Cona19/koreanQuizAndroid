@@ -22,3 +22,5 @@
 3. 문제 화면(InitialQuizActivity, CrossQuizActivity) : 초성 문제나 십자말 문제를 서버로부터 받아 표시하며, 답 제출 시 정답 여부를 확인할 수 있다.
 4. 통계 화면(Statistics : 자신의 지금까지의 문제 풀이에 관한 통계자료를 서버로부터 받아 확인할 수 있다.
 5. 개발자 정보 화면 : 개발자에 대한 정보를 확인할 수 있다.
+
+## [플레이스토어 주소](https://play.google.com/store/apps/details?id=com.cona.ohs.koreanquiz&hl=ko)
