@@ -1,8 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ Copyright (c) 2016 Hyeonseok Oh. All Rights Reserved.
-  -->
-
+<?xml version="1.0" encoding="utf-8"?><!--   ~ Copyright (c) 2016 Hyeonseok Oh. All Rights Reserved. -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.cona.ohs.koreanquiz"
     android:versionCode="0"
@@ -38,10 +34,9 @@
         <activity
             android:name=".InitialQuizActivity"
             android:configChanges="orientation|screenSize" />
-        <activity
-            android:name=".CrossQuizActivity"
+        <activity android:name=".StatisticsActivity" />
+        <activity android:name=".CrosswordQuizActivity"
             android:configChanges="orientation|screenSize" />
-        <activity android:name=".StatisticsActivity"></activity>
     </application>
 
 </manifest>
